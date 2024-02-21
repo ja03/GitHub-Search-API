@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-import searchIcon from "../../assets/icons/SearchFilled.png";
-import starIcon from "../../assets/icons/StarBorderOutlined.png";
+import searchIcon from "../assets/icons/SearchFilled.png";
+import starIcon from "../assets/icons/StarBorderOutlined.png";
 
 const Search = () => {
     const [searchInput, setSearchInput] = useState<string>("")
