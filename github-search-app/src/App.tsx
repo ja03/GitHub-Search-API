@@ -1,15 +1,15 @@
-
-
-
-
+import { createBrowserRouter, Route, createRoutesFromElements, RouterProvider } from "react-router-dom";
 function App() {
-
-
-  return (
-    <>
-     <p>hola</p>
-    </>
+  const router = createBrowserRouter(
+    createRoutesFromElements(
+      <Route path="/"/>
+    )
   )
+    return (
+        <>
+            <RouterProvider router={router}/>
+        </>
+    );
 }
 
-export default App
+export default App;
