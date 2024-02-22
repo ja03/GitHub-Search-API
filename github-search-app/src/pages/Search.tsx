@@ -3,19 +3,41 @@ import { Link } from "react-router-dom";
 
 import searchIcon from "../assets/icons/SearchFilled.png";
 import starIcon from "../assets/icons/StarBorderOutlined.png";
-// API Calling
-const getUsers= async (q:string):Promise<object | void> => {
-    await fetch(`https://api.github.com/search/users?q=${q}`)
-            .then(r=> r.json())
-            .then(d => {
-                console.log(d.items)
-                return d.items;
-            })
-            .catch(e=>console.warn(e))  
-}
+
+import UserCard from "../components/UserCard";
+
+import { User } from "../utils/types";
 
 const Search = () => {
-    const [searchInput, setSearchInput] = useState<string>("")
+    const [searchInput, setSearchInput] = useState<string>("");
+    const [fetchedData, setFetchedData] = useState<Array<User>>([]);
+    useEffect(()=>{
+        if(searchInput.length === 0){
+            setFetchedData([])
+        }
+    },[searchInput])
+    // API Calling
+    const getUsers = async (q: string): Promise<object | void> => {
+        await fetch(`https://api.github.com/search/users?q=${q}`)
+            .then((r) => r.json())
+            .then((d) => {
+                let usersArr = d.items.map((i: any) => {
+                    let userObj: User = {
+                        user_avatar: i.avatar_url,
+                        user_login: i.login,
+                        user_full_name: "",
+                        user_bio: "",
+                        user_followers: 0,
+                        user_following: 0,
+                        user_puplic_repos: 0,
+                    };
+                    return userObj;
+                });
+                setFetchedData(usersArr);
+                return d.items;
+            })
+            .catch((e) => console.warn(e));
+    };
     return (
         <div>
             <div className="w-full shadow-md flex flex-col justify-center items-center bg-white h-[86px] p-2">
@@ -35,9 +57,9 @@ const Search = () => {
                             value={searchInput}
                             // use the Form react router component
                             onChange={(e) => {
-                                setSearchInput(e.target.value.toString())
-                                if(searchInput.length >=3 ){
-                                    getUsers(searchInput)
+                                setSearchInput(e.target.value.toString());
+                                if (searchInput.length >= 2) {
+                                    getUsers(searchInput);
                                 }
                             }}
                         />
@@ -49,7 +71,28 @@ const Search = () => {
             </div>
             {/* List View */}
             <div className="flex flex-col items-center justify-center py-4">
-                <div>
+                <div
+                    className={
+                        fetchedData.length > 0
+                            ? "w-[600px] flex flex-col items-center p-2 pb-0 space-y-4 rounded-lg shadow-md bg-white"
+                            : ""
+                    }>
+                    {fetchedData.length > 0 ? (
+                        fetchedData.map((user) => {
+                            return (
+                                <div
+                                    className="w-full flex flex-col "
+                                    key={user.user_login}>
+                                    <UserCard userData={user} />
+                                    <div className="w-full h-[2px] bg-[#D9D9D9] mt-2 mx-auto"></div>
+                                </div>
+                            );
+                        })
+                    ) : (
+                        <>
+                            <p className="text-[14px]">No search results...</p>
+                        </>
+                    )}
                 </div>
             </div>
         </div>
