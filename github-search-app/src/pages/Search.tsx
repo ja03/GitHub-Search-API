@@ -1,8 +1,18 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 import searchIcon from "../assets/icons/SearchFilled.png";
 import starIcon from "../assets/icons/StarBorderOutlined.png";
+// API Calling
+const getUsers= async (q:string):Promise<object | void> => {
+    await fetch(`https://api.github.com/search/users?q=${q}`)
+            .then(r=> r.json())
+            .then(d => {
+                console.log(d.items)
+                return d.items;
+            })
+            .catch(e=>console.warn(e))  
+}
 
 const Search = () => {
     const [searchInput, setSearchInput] = useState<string>("")
@@ -25,7 +35,10 @@ const Search = () => {
                             value={searchInput}
                             // use the Form react router component
                             onChange={(e) => {
-                                setSearchInput(e.target.value.toString());
+                                setSearchInput(e.target.value.toString())
+                                if(searchInput.length >=3 ){
+                                    getUsers(searchInput)
+                                }
                             }}
                         />
                     </div>
