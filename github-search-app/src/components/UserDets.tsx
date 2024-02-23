@@ -2,9 +2,9 @@
 import { useLoaderData, Link } from "react-router-dom";
 
 // asstes
-import backArrowIcon from "../../assets/icons/ArrowBackFilled.png";
-import filledStarIcon from "../../assets/icons/StarFilled.png";
-import starIcon from "../../assets/icons/StarBorderOutlined.png";
+import backArrowIcon from "../assets/icons/ArrowBackFilled.png";
+import filledStarIcon from "../assets/icons/StarFilled.png";
+import starIcon from "../assets/icons/StarBorderOutlined.png";
 
 const UserDets = () => {
     const user: any = useLoaderData();

@@ -4,13 +4,22 @@ import RootLayout from "./layouts/RootLayout";
 import Search from "./pages/Search";
 import Favoritos from "./pages/Favoritos";
 import ErrorPage from "./pages/404";
+import UserDets from "./components/UserDets";
+
+import { userDetailsLoader } from "./utils/helper";
 
 function App() {
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route path="/" element={<RootLayout />}>
-        <Route index element={<Search/>}/>
-        <Route path="/favoritos" element={<Favoritos/>}/>
+        <Route path='/'>
+          <Route index element={<Search/>}/>
+          <Route path={":username"} element={<UserDets/>} loader={userDetailsLoader}/>
+        </Route>
+        <Route path="/favoritos">
+          <Route index element={<Favoritos/>}/>
+          <Route path=":username" loader={userDetailsLoader}/>
+        </Route>
         <Route path="*" element={<ErrorPage/>}/>
       </Route>
     )
