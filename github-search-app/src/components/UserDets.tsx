@@ -22,10 +22,11 @@ const UserDets = () => {
                         </Link>
                         <p className="text-[21px]">@{user.login}</p>
                     </div>
-                    <img src={filledStarIcon} alt="star-icon" />
+                    <img src={true ? filledStarIcon : starIcon} alt="star-icon" />
                 </div>
             </div>
-            <div className="w-[600px] my-2 mx-auto flex gap-4 items-center p-2 rounded-md shadow-md bg-white">
+            <div className="w-[600px] my-2 mx-auto flex gap-4 items-center p-2 rounded-md shadow-md bg-white relative">
+                <img src={true ? filledStarIcon : starIcon} alt="star-icon" className="absolute top-2 right-2"/>
                 <div className="min-w-[150px] w-[150px] h-[150px] min-h-[150px]">
                     <img
                         src={user.avatar_url}
