@@ -1,5 +1,7 @@
 import { useState } from "react";
 
+import { Link } from "react-router-dom";
+
 import { UserCardProps, User } from "../utils/types";
 import { handleFavUser, handleStarIcon } from "../utils/helper";
 
@@ -15,14 +17,14 @@ const UserCard = ({ userData }: UserCardProps) => {
     }
     return (
         <div className="flex justify-between items-center">
-            <div className="flex-1 flex items-center gap-2">
+            <Link to={`${userData.user_login}`} className="flex-1 flex items-center gap-2">
                 <div
                     className="rounded-full border-2 w-[60px] h-[60px] grid items-center  bg-cover bg-center"
                     style={{
                         backgroundImage: `url(${userData.user_avatar})`,
                     }}></div>
                 <p className="text-[18px]">@{userData.user_login}</p>
-            </div>
+            </Link>
             <img
                 src={isFav ? filledStarIcon : starIcon}
                 alt="filled-star-icon"
