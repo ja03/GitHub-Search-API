@@ -8,7 +8,7 @@ import starIcon from "../assets/icons/StarBorderOutlined.png";
 import filledStarIcon from "../assets/icons/StarFilled.png";
 
 const UserCard = ({ userData }: UserCardProps) => {
-    const [isFav, setIsFav]= useState<boolean>(false)
+    const [isFav, setIsFav]= useState<boolean>(handleStarIcon(userData))
     const handleClick=(user:User)=>{
         handleFavUser(user)
         setIsFav(handleStarIcon(user))
