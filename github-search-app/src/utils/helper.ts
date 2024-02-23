@@ -17,7 +17,7 @@ export const handleFavUser = (user: User): void => {
         let newArr = favUsers.filter((u) => {
             return u.user_login !== user.user_login;
         });
-        localStorage.setItem("favUsers", JSON.stringify(newArr));
+        localStorage.setItem("FavUsers", JSON.stringify(newArr));
     } else {
         // add item
         console.log("adding user")
