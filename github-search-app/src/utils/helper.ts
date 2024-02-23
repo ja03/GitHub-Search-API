@@ -36,3 +36,8 @@ export const handleStarIcon = (user: User): boolean => {
         return false;
     }
 };
+export const getFavUsers = (): User[] =>{
+    let favUsersItem: string = localStorage.getItem("FavUsers") ?? "";
+    let favUsers: User[] = JSON.parse(favUsersItem);
+    return favUsers;
+}
