@@ -1,13 +1,22 @@
-// react router
-import { useLoaderData, Link } from "react-router-dom";
+import { useState } from "react";
+
+import { useLoaderData, Link} from "react-router-dom";
 
 // asstes
 import backArrowIcon from "../assets/icons/ArrowBackFilled.png";
 import filledStarIcon from "../assets/icons/StarFilled.png";
 import starIcon from "../assets/icons/StarBorderOutlined.png";
 
+import { User } from "../utils/types";
+import { handleStarIcon, handleFavUser } from "../utils/helper";
+
 const UserDets = () => {
     const user: any = useLoaderData();
+    const [isFav, setIsFav] = useState<boolean>(handleStarIcon(user.login))
+    const handleClick=(user:User)=>{
+        handleFavUser(user)
+        setIsFav(handleStarIcon(user))
+    }
     return (
         <div>
             <div className="w-full shadow-md flex flex-col justify-center items-center bg-white h-[86px] p-2">
@@ -16,17 +25,17 @@ const UserDets = () => {
                         <Link to="/">
                             <img
                                 src={backArrowIcon}
-                                alt="search-icon"
+                                alt="back-arrow-icon"
                                 className="w-full h-auto"
                             />
                         </Link>
                         <p className="text-[21px]">@{user.login}</p>
                     </div>
-                    <img src={true ? filledStarIcon : starIcon} alt="star-icon" />
+                    <img src={isFav ? filledStarIcon : starIcon} alt="star-icon" />
                 </div>
             </div>
             <div className="w-[600px] my-2 mx-auto flex gap-4 items-center p-2 rounded-md shadow-md bg-white relative">
-                <img src={true ? filledStarIcon : starIcon} alt="star-icon" className="absolute top-2 right-2"/>
+                <img src={isFav ? filledStarIcon : starIcon} alt="star-icon" className="absolute top-2 right-2" onClick={()=>handleClick(user)}/>
                 <div className="min-w-[150px] w-[150px] h-[150px] min-h-[150px]">
                     <img
                         src={user.avatar_url}

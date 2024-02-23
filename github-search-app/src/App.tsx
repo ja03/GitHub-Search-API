@@ -14,11 +14,11 @@ function App() {
       <Route path="/" element={<RootLayout />}>
         <Route path='/'>
           <Route index element={<Search/>}/>
-          <Route path=":username" element={<UserDets/>} loader={userDetailsLoader}/>
+          <Route path=":username" element={<UserDets />} loader={userDetailsLoader}/>
         </Route>
         <Route path="/favoritos">
           <Route index element={<Favoritos/>}/>
-          <Route path=":username" element={<UserDets/>} loader={userDetailsLoader}/>
+          <Route path=":username" element={<UserDets />} loader={userDetailsLoader}/>
         </Route>
         <Route path="*" element={<ErrorPage/>}/>
       </Route>
