@@ -1,9 +1,9 @@
 import { User } from "./types"
-const handleFavUser = (user:User, users:User[]=[]):void =>{
+export const handleFavUser = (user:User, users:User[]=[]):void =>{
     // chechk if user in array
     let favUsersItem : string = localStorage.getItem('FavUsers') ?? " "
     let favUsers:(object)[] = JSON.parse(favUsersItem)
-    let inArray = favUsers.includes(favUsers)
+    let inArray = favUsers.includes(user)
     if(inArray){
         // pop item 
         let newArr = favUsers.filter(u =>{
@@ -16,4 +16,9 @@ const handleFavUser = (user:User, users:User[]=[]):void =>{
         localStorage.setItem('FavUsers', JSON.stringify(users))
     }
     localStorage.setItem('users', JSON.stringify(user))
+}
+export const handleStarIcon= (user:User):boolean=>{
+    let favUsersItem : string = localStorage.getItem('FavUsers') ?? " "
+    let favUsers:(object)[] = JSON.parse(favUsersItem)
+    return favUsers.includes(user)
 }
