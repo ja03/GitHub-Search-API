@@ -1,5 +1,6 @@
-import { UserCardProps } from "../utils/types";
+import { useState, useEffect } from "react";
 
+import { UserCardProps } from "../utils/types";
 import { handleFavUser, handleStarIcon } from "../utils/helper";
 
 // assets
@@ -7,6 +8,11 @@ import starIcon from "../assets/icons/StarBorderOutlined.png";
 import filledStarIcon from "../assets/icons/StarFilled.png";
 
 const UserCard = ({userData}:UserCardProps) => {
+    const [isFav, setisFav]= useState<boolean>(false)
+    useEffect(()=>{
+        let tempState:boolean = handleStarIcon(userData)
+        setisFav(tempState)
+    },[isFav])
     return (
         <div className="flex justify-between items-center">
             <div className="flex-1 flex items-center gap-2">
@@ -16,11 +22,11 @@ const UserCard = ({userData}:UserCardProps) => {
                 </div>
                 <p className="text-[18px]">@{userData.user_login}</p>
             </div>
-            {handleStarIcon(userData) ? (
-                <img src={filledStarIcon}  alt="filled-star-icon" />
+            {isFav ? (
+                <img src={filledStarIcon}  alt="filled-star-icon" onClick={()=>handleFavUser(userData)}/>
             ) : (
                 <>
-                    <img src={starIcon}  alt="star-icon" />
+                    <img src={starIcon}  alt="star-icon" onClick={()=>handleFavUser(userData)}/>
                 </>
             )}
         </div>
