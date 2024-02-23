@@ -18,7 +18,13 @@ export const handleFavUser = (user: User, users: User[] = []): void => {
     localStorage.setItem("users", JSON.stringify(user));
 };
 export const handleStarIcon = (user: User): boolean => {
-    let favUsersItem: string = localStorage.getItem("FavUsers") ?? " ";
-    let favUsers: object[] = JSON.parse(favUsersItem);
-    return favUsers.includes(user);
+    let favUsersItem: string = localStorage.getItem("FavUsers") ?? "";
+    if (favUsersItem.length > 0){
+        let favUsers: object[] = JSON.parse(favUsersItem);
+        return favUsers.includes(user)
+    }else{
+        console.log("empty")
+        return false
+    }
+    
 };

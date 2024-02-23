@@ -14,6 +14,8 @@ const Search = () => {
     useEffect(()=>{
         if(searchInput.length === 0){
             setFetchedData([])
+        }else if (searchInput.length >= 3) {
+            getUsers(searchInput);
         }
     },[searchInput])
     // API Calling
@@ -58,9 +60,6 @@ const Search = () => {
                             // use the Form react router component
                             onChange={(e) => {
                                 setSearchInput(e.target.value.toString());
-                                if (searchInput.length >= 2) {
-                                    getUsers(searchInput);
-                                }
                             }}
                         />
                     </div>
