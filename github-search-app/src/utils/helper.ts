@@ -41,3 +41,22 @@ export const getFavUsers = (): User[] =>{
     let favUsers: User[] = JSON.parse(favUsersItem);
     return favUsers;
 }
+
+// loader function
+export const userDetailsLoader = async ({ params }: any) => {
+    const { username } = params;
+    try {
+        const res = await fetch(`https://api.github.com/users/${username}`);
+        if (res.ok) {
+            const userData = await res.json();
+            // console.log(userData)
+            return userData;
+        } else {
+            console.warn("lol api broke again");
+            return null;
+        }
+    } catch (e) {
+        console.warn(e);
+        return null;
+    }
+};
