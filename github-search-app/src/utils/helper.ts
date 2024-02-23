@@ -1,18 +1,19 @@
 import { User } from "./types"
-const handleFavUser = (user:User):void =>{
+const handleFavUser = (user:User, users:User[]=[]):void =>{
     // chechk if user in array
-    const favUsers : any = localStorage.getItem('FavUsers') ?? []
-    let usersFromStorage: any= JSON.parse(favUsers)
-
+    let favUsersItem : string = localStorage.getItem('FavUsers') ?? " "
+    let favUsers:(object)[] = JSON.parse(favUsersItem)
     let inArray = favUsers.includes(favUsers)
     if(inArray){
-        // item will be poped out
-        // let newArr = favUsers.filter(u =>{
-        //     return (u !== user)
-        // })
+        // pop item 
+        let newArr = favUsers.filter(u =>{
+            return (u !== user)
+        })
+        localStorage.setItem('favUsersItem', JSON.stringify(newArr))
     }else{
-        let newArr:User[];
-        // newArr = JSON.parse(localStorage.getItem('FavUsers') ? [])
+        // add item 
+        users.push(user)
+        localStorage.setItem('FavUsers', JSON.stringify(users))
     }
     localStorage.setItem('users', JSON.stringify(user))
 }
