@@ -1,5 +1,5 @@
 import { User } from "./types";
-export const handleFavUser = (user: User): void => {
+export const handleFavUser = (user: User, user_id:string = ''): void => {
     // chechk if user in array
     let favUsersItem: string = localStorage.getItem("FavUsers") ?? "";
     let inArray: boolean;
@@ -14,9 +14,16 @@ export const handleFavUser = (user: User): void => {
     if (inArray) {
         // pop item
         console.log("removing user")
-        let newArr = favUsers.filter((u) => {
-            return u.user_login !== user.user_login;
-        });
+        let newArr;
+        if(user_id.length > 0){
+            newArr = favUsers.filter((u) => {
+                return u.user_login !== user_id;
+            });
+        }else{
+            newArr = favUsers.filter((u) => {
+                return u.user_login !== user.user_login;
+            });
+        }
         localStorage.setItem("FavUsers", JSON.stringify(newArr));
     } else {
         // add item
@@ -49,8 +56,16 @@ export const userDetailsLoader = async ({ params }: any) => {
         const res = await fetch(`https://api.github.com/users/${username}`);
         if (res.ok) {
             const userData = await res.json();
-            // console.log(userData)
-            return userData;
+            let userObj:User={
+                user_avatar:userData.avatar_url,
+                user_login:userData.login,
+                user_full_name:userData.name,
+                user_bio:userData.bio,
+                user_followers:userData.followers,
+                user_following:userData.following,
+                user_puplic_repos:userData.puplic_repos
+            }
+            return userObj;
         } else {
             console.warn("lol api broke again");
             return null;
