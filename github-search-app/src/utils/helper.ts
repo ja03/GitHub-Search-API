@@ -50,7 +50,7 @@ export const getFavUsers = (): User[] =>{
 }
 
 // loader function
-export const userDetailsLoader = async ({ params }: any) => {
+export const userDetailsLoader = async ({ params }: any):Promise<User> => {
     const { username } = params;
     try {
         const res = await fetch(`https://api.github.com/users/${username}`);
@@ -63,15 +63,33 @@ export const userDetailsLoader = async ({ params }: any) => {
                 user_bio:userData.bio,
                 user_followers:userData.followers,
                 user_following:userData.following,
-                user_puplic_repos:userData.public_repos
+                user_public_repos:userData.public_repos
             }
             return userObj;
         } else {
             console.warn("lol api broke again");
-            return null;
+            let userObj:User={
+                user_avatar:"",
+                user_login:"",
+                user_full_name:"",
+                user_bio:"",
+                user_followers:0,
+                user_following:0,
+                user_public_repos:0,
+            }
+            return userObj;
         }
     } catch (e) {
         console.warn(e);
-        return null;
+        let userObj:User={
+            user_avatar:"",
+            user_login:"",
+            user_full_name:"",
+            user_bio:"",
+            user_followers:0,
+            user_following:0,
+            user_public_repos:0,
+        }
+        return userObj;
     }
 };

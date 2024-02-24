@@ -12,7 +12,7 @@ import { handleStarIcon, handleFavUser } from "../utils/helper";
 
 const UserDets = () => {
     // const user = useLoaderData();
-    const [user, setUser]= useState(useLoaderData())
+    const [user, setUser]= useState<User| any>(useLoaderData())
     const [isFav, setIsFav] = useState<boolean>(handleStarIcon(user))
     const handleClick=(user:User)=>{
         handleFavUser(user)
@@ -66,7 +66,7 @@ const UserDets = () => {
                             </p>
                         </div>
                         <div className="flex flex-col items-center">
-                            <p className="text-[28px]">{user.user_puplic_repos}</p>
+                            <p className="text-[28px]">{user.user_public_repos}</p>
                             <p className="text-[14px] text-[#8D8D8D]">REPOS</p>
                         </div>
                     </div>
