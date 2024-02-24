@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 import { useLoaderData, Link} from "react-router-dom";
 
@@ -8,7 +8,7 @@ import filledStarIcon from "../assets/icons/StarFilled.png";
 import starIcon from "../assets/icons/StarBorderOutlined.png";
 
 import { User } from "../utils/types";
-import { handleStarIcon, handleFavUser, updateFavUserDets } from "../utils/helper";
+import { handleStarIcon, handleFavUser} from "../utils/helper";
 
 const UserDets = () => {
     const [user]= useState<User| any>(useLoaderData())
@@ -17,11 +17,6 @@ const UserDets = () => {
         handleFavUser(user)
         setIsFav(handleStarIcon(user))
     }
-    useEffect(()=>{
-        window.addEventListener('onload', ()=>{
-            updateFavUserDets(user)
-        })
-    },[])
     return (
         <div>
             <div className="w-full shadow-md flex flex-col justify-center items-center bg-white h-[86px] p-2">
@@ -41,7 +36,6 @@ const UserDets = () => {
             </div>
             <div className="w-[600px] my-2 mx-auto flex gap-4 items-center p-2 rounded-md shadow-md bg-white relative">
                 <img src={isFav ? filledStarIcon : starIcon} alt="star-icon" className="absolute top-2 right-2" onClick={()=>handleClick(user)}/>
-                <p className="absolute top-8 right-8" onClick={()=>updateFavUserDets(user)}>updata</p>
                 <div className="min-w-[150px] w-[150px] h-[150px] min-h-[150px]">
                     <img
                         src={user.user_avatar}
