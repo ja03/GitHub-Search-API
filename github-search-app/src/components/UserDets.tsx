@@ -12,7 +12,7 @@ import { handleStarIcon, handleFavUser } from "../utils/helper";
 
 const UserDets = () => {
     // const user = useLoaderData();
-    const [user, setUser]= useState<User| any>(useLoaderData())
+    const [user]= useState<User| any>(useLoaderData())
     const [isFav, setIsFav] = useState<boolean>(handleStarIcon(user))
     const handleClick=(user:User)=>{
         handleFavUser(user)

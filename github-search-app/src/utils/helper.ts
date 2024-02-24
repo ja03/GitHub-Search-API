@@ -1,5 +1,5 @@
 import { User } from "./types";
-export const handleFavUser = (user: User, user_id:string = ''): void => {
+export const handleFavUser = (user: User): void => {
     // chechk if user in array
     let favUsersItem: string = localStorage.getItem("FavUsers") ?? "";
     let inArray: boolean;
@@ -15,15 +15,9 @@ export const handleFavUser = (user: User, user_id:string = ''): void => {
         // pop item
         console.log("removing user")
         let newArr;
-        if(user_id.length > 0){
-            newArr = favUsers.filter((u) => {
-                return u.user_login !== user_id;
-            });
-        }else{
             newArr = favUsers.filter((u) => {
                 return u.user_login !== user.user_login;
             });
-        }
         localStorage.setItem("FavUsers", JSON.stringify(newArr));
     } else {
         // add item
@@ -46,9 +40,8 @@ export const handleStarIcon = (user: User): boolean => {
 export const getFavUsers = (): User[] =>{
     let favUsersItem: string = localStorage.getItem("FavUsers") ?? "";
     let favUsers: User[] = JSON.parse(favUsersItem);
-    return favUsers;
+    return favUsers ? favUsers : [];
 }
-
 // loader function
 export const userDetailsLoader = async ({ params }: any):Promise<User> => {
     const { username } = params;
