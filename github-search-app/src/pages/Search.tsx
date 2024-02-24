@@ -31,7 +31,7 @@ const Search = () => {
                         user_bio: "",
                         user_followers: 0,
                         user_following: 0,
-                        user_puplic_repos: 0,
+                        user_public_repos: 0,
                     };
                     return userObj;
                 });

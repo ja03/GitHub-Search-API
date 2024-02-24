@@ -5,7 +5,7 @@ export type User ={
     user_bio:string,
     user_followers:number,
     user_following:number,
-    user_puplic_repos:number
+    user_public_repos:number
 }
 export type UserCardProps={
     userData:User

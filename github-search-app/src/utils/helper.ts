@@ -63,7 +63,7 @@ export const userDetailsLoader = async ({ params }: any) => {
                 user_bio:userData.bio,
                 user_followers:userData.followers,
                 user_following:userData.following,
-                user_puplic_repos:userData.puplic_repos
+                user_puplic_repos:userData.public_repos
             }
             return userObj;
         } else {
