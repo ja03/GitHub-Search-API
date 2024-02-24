@@ -14,8 +14,9 @@ import filledStarIcon from "../assets/icons/StarFilled.png";
 const Favoritos = () => {
     const [users, setUsrs ] = useState<Array<User>>(getFavUsers())
     useEffect(()=>{
-        setUsrs(getFavUsers())
-    }, users)
+        let newUsers:User[] = getFavUsers()
+        setUsrs(newUsers)
+    }, [])
     return (
         <div>
             <div className="w-full shadow-md flex flex-col justify-center items-center bg-white h-[86px] p-2">

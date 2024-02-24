@@ -42,6 +42,29 @@ export const getFavUsers = (): User[] =>{
     let favUsers: User[] = JSON.parse(favUsersItem);
     return favUsers ? favUsers : [];
 }
+export const updateFavUserDets = (user:User)=>{
+    let favUsersItem: string = localStorage.getItem("FavUsers") ?? "";
+    let favUsers: User[] = JSON.parse(favUsersItem);
+    if(favUsers.length > 0){
+        favUsers = favUsers.map(u=>{
+            if(u.user_login === user.user_login){
+                return {
+                    user_avatar:user.user_avatar,
+                    user_login:user.user_login,
+                    user_full_name:user.user_full_name,
+                    user_bio:user.user_bio,
+                    user_followers:user.user_followers,
+                    user_following:user.user_following,
+                    user_public_repos:user.user_public_repos
+                }
+            }
+            else{
+                return u
+            }
+        })
+    }
+    localStorage.setItem("FavUsers", JSON.stringify(favUsers));
+}
 // loader function
 export const userDetailsLoader = async ({ params }: any):Promise<User> => {
     const { username } = params;
