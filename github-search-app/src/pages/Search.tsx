@@ -11,6 +11,8 @@ import { User } from "../utils/types";
 const Search = () => {
     const [searchInput, setSearchInput] = useState<string>("");
     const [fetchedData, setFetchedData] = useState<Array<User>>([]);
+    const [page, setPage]= useState<number>(1)
+    const [perPage] = useState<number>()
     useEffect(()=>{
         if(searchInput.length === 0){
             setFetchedData([])
@@ -20,7 +22,7 @@ const Search = () => {
     },[searchInput])
     // API Calling
     const getUsers = async (q: string): Promise<object | void> => {
-        await fetch(`https://api.github.com/search/users?q=${q}`)
+        await fetch(`https://api.github.com/search/users?q=${q}&per_page=2&page=3`)
             .then((r) => r.json())
             .then((d) => {
                 let usersArr = d.items.map((i: any) => {
@@ -40,6 +42,17 @@ const Search = () => {
             })
             .catch((e) => console.warn(e));
     };
+    const handleScroll = (q:string)=>{
+        const {scrollTop, clientHeight} = document.documentElement;
+        let scrollPosition = scrollTop >= clientHeight -10 && scrollTop <= clientHeight + 10
+        let pageNum = page <=34
+        if(pageNum && scrollPosition){
+            getUsers(q)
+            setPage(page+1)
+        }
+
+        console.log(scrollTop, clientHeight)
+    }
     return (
         <div>
             <div className="w-full shadow-md flex flex-col justify-center items-center bg-white h-[86px] p-2">
