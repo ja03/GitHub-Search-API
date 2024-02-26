@@ -17,8 +17,8 @@ const Search = () => {
     const handleScroll = (event: any) => {
         // console.log(scrollTop)
         const scrollY = event.currentTarget.scrollTop;
-        if (scrollY >= 500 ) {
-            if (scrollY % (500 ) === 0) {
+        if (Math.ceil(scrollY) >= 500 ) {
+            if (Math.ceil(scrollY) % 500  === 0) {
                 setCurrentPage(currentPage + 1);
             }
         }
