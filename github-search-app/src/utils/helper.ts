@@ -37,10 +37,10 @@ export const handleStarIcon = (user: User): boolean => {
         return false;
     }
 };
-export const getFavUsers = (): User[] =>{
-    let favUsersItem: string = localStorage.getItem("FavUsers") ?? "";
-    let favUsers: User[] = JSON.parse(favUsersItem);
-    return favUsers ? favUsers : [];
+export const getFavUsers = () =>{
+    let favUsersItem: string | null  = localStorage.getItem("FavUsers");
+    let favUsers: User[] = favUsersItem ? JSON.parse(favUsersItem) : null;
+    return favUsersItem ? favUsers : [];
 }
 // loader function
 export const userDetailsLoader = async ({ params }: any):Promise<User> => {
