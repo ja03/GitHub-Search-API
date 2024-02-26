@@ -16,7 +16,7 @@ const UserCard = ({ userData }: UserCardProps) => {
         setIsFav(handleStarIcon(user))
     }
     return (
-        <div className="flex justify-between items-center">
+        <div className="flex justify-between items-center h-[64px]">
             <Link to={`${userData.user_login}`} className="flex-1 flex items-center gap-2">
                 <div
                     className="rounded-full border-2 w-[60px] h-[60px] grid items-center  bg-cover bg-center"
