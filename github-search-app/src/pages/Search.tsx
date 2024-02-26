@@ -12,13 +12,11 @@ const Search = () => {
     const [searchInput, setSearchInput] = useState<string>("");
     const [fetchedData, setFetchedData] = useState<Array<User>>([]);
 
-    const [scrollTop, setScrollTop] = useState<number>(0);
     const [currentPage, setCurrentPage] = useState<number>(1);
 
     const handleScroll = (event: any) => {
         // console.log(scrollTop)
         const scrollY = event.currentTarget.scrollTop;
-        setScrollTop(scrollY);
         if (scrollY >= 500 ) {
             if (scrollY % (500 ) === 0) {
                 setCurrentPage(currentPage + 1);
