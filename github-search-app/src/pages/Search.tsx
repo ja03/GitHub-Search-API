@@ -20,8 +20,8 @@ const Search = () => {
         // console.log(scrollTop)
         const scrollY = event.currentTarget.scrollTop;
         setScrollTop(scrollY);
-        if (scrollY >= 600 ) {
-            if (scrollY % (600 ) === 0) {
+        if (scrollY >= 500 ) {
+            if (scrollY % (500 ) === 0) {
                 setCurrentPage(currentPage + 1);
             }
         }
@@ -40,10 +40,35 @@ const Search = () => {
     useEffect(() => {
         // api logic here
         console.log(currentPage)
-        currentPage > 1 && getUsers(searchInput)
+        currentPage > 1 && getUsersWhenScroling(searchInput)
     }, [currentPage]);
 
     // API Calling
+    const getUsersWhenScroling = async (q: string): Promise<object | void> => {
+        await fetch(
+            `https://api.github.com/search/users?q=${q}&per_page=15&page=${currentPage}`
+        )
+            .then((r) => r.json())
+            .then((d) => {
+                let usersArr = d.items.map((i: any) => {
+                    let userObj: User = {
+                        user_avatar: i.avatar_url,
+                        user_login: i.login,
+                        user_full_name: "",
+                        user_bio: "",
+                        user_followers: 0,
+                        user_following: 0,
+                        user_public_repos: 0,
+                    };
+                    return userObj
+                
+                });
+                setFetchedData((prevData)=>[...prevData, ...usersArr]);
+                return d.items;
+            })
+            .catch((e) => console.warn(e));
+    };
+    
     const getUsers = async (q: string): Promise<object | void> => {
         await fetch(
             `https://api.github.com/search/users?q=${q}&per_page=15&page=${currentPage}`
@@ -60,13 +85,15 @@ const Search = () => {
                         user_following: 0,
                         user_public_repos: 0,
                     };
-                    return userObj;
+                    return userObj
+                
                 });
                 setFetchedData(usersArr);
                 return d.items;
             })
             .catch((e) => console.warn(e));
     };
+
     return (
         <div>
             <div className="w-full shadow-md flex flex-col justify-center items-center bg-white h-[86px] p-2">
@@ -97,7 +124,7 @@ const Search = () => {
             </div>
             {/* List View */}
             <div
-                className={`flex flex-col items-center justify-center py-4 h-[600px]`}
+                className={`flex flex-col items-center justify-top py-4 h-[600px]`}
                 >
                 <div onScroll={handleScroll} className="overflow-y-scroll">
                     <div
