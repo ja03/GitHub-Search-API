@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 import searchIcon from "../assets/icons/SearchFilled.png";
@@ -13,7 +13,6 @@ const Search = () => {
     const [fetchedData, setFetchedData] = useState<Array<User>>([]);
 
     const [scrollTop, setScrollTop] = useState<number>(0);
-    const [clientHeight, setClientHeight] = useState<number>(0);
     const [currentPage, setCurrentPage] = useState<number>(1);
 
     const handleScroll = (event: any) => {
@@ -34,9 +33,7 @@ const Search = () => {
         }
     }, [searchInput]);
 
-    useEffect(() => {
-        setClientHeight(document.documentElement.clientHeight);
-    }, []);
+
     useEffect(() => {
         // api logic here
         console.log(currentPage)
