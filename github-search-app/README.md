@@ -27,7 +27,7 @@ GitHub User Search Progressive Web App (PWA) built with ReactJS and TypeScript!
 1. **Clone the repository:**
 
     ```powershell
-    git clone https://github.com/ja03/github-user-search-app.git
+    git clone https://github.com/ja03/user-search-github-app
     ```
 
 2. **Install Dependencies:**
