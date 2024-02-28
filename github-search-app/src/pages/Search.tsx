@@ -7,6 +7,7 @@ import starIcon from "../assets/icons/StarBorderOutlined.png";
 import UserCard from "../components/UserCard";
 
 import { User } from "../utils/types";
+import { getUsers} from "../utils/helper";
 
 const Search = () => {
     const [searchInput, setSearchInput] = useState<string>("");
@@ -27,67 +28,27 @@ const Search = () => {
         if (searchInput.length === 0) {
             setFetchedData([]);
         } else if (searchInput.length >= 3) {
-            getUsers(searchInput);
+            
+            (async()=>{
+                const users = await getUsers(searchInput, currentPage)
+                if(users){
+                    setFetchedData(users as Array<User>)
+                }
+            }) ()
         }
     }, [searchInput]);
-
+    
 
     useEffect(() => {
-        // api logic here
-        console.log(currentPage)
-        currentPage > 1 && getUsersWhenScroling(searchInput)
+        currentPage > 1 && (async()=>{
+            const users = await getUsers(searchInput, currentPage)
+            if(users){
+                setFetchedData([...fetchedData, ...(users as Array<User>)])
+            }
+        }) ()
     }, [currentPage]);
 
-    // API Calling
-    const getUsersWhenScroling = async (q: string): Promise<object | void> => {
-        await fetch(
-            `https://api.github.com/search/users?q=${q}&per_page=15&page=${currentPage}`
-        )
-            .then((r) => r.json())
-            .then((d) => {
-                let usersArr = d.items.map((i: any) => {
-                    let userObj: User = {
-                        user_avatar: i.avatar_url,
-                        user_login: i.login,
-                        user_full_name: "",
-                        user_bio: "",
-                        user_followers: 0,
-                        user_following: 0,
-                        user_public_repos: 0,
-                    };
-                    return userObj
-                
-                });
-                setFetchedData((prevData)=>[...prevData, ...usersArr]);
-                return d.items;
-            })
-            .catch((e) => console.warn(e));
-    };
-    
-    const getUsers = async (q: string): Promise<object | void> => {
-        await fetch(
-            `https://api.github.com/search/users?q=${q}&per_page=15&page=${currentPage}`
-        )
-            .then((r) => r.json())
-            .then((d) => {
-                let usersArr = d.items.map((i: any) => {
-                    let userObj: User = {
-                        user_avatar: i.avatar_url,
-                        user_login: i.login,
-                        user_full_name: "",
-                        user_bio: "",
-                        user_followers: 0,
-                        user_following: 0,
-                        user_public_repos: 0,
-                    };
-                    return userObj
-                
-                });
-                setFetchedData(usersArr);
-                return d.items;
-            })
-            .catch((e) => console.warn(e));
-    };
+
 
     return (
         <div>
