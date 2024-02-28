@@ -33,7 +33,7 @@ GitHub User Search Progressive Web App (PWA) built with ReactJS and TypeScript!
 2. **Install Dependencies:**
 
     ```powershell
-    cd github-user-app
+    cd github-user-search-app
     npm install
     ```
 
